@@ -67,6 +67,7 @@ In this task, you will create an Azure Kubernetes service and review the deploye
     sh
     az aks get-credentials --resource-group AZ500LAB09 --name MyKubernetesCluster
 ```
+![image](https://user-images.githubusercontent.com/5245744/161418627-db26e9dd-342b-4465-830e-eac78d20a1f9.png)
 
 14. In the Bash session within the Cloud Shell pane, run the following **to list nodes of the Kubenetes cluster**:
 
@@ -76,6 +77,8 @@ In this task, you will create an Azure Kubernetes service and review the deploye
     kubectl get nodes
 ```
 >Verify that the Status of the cluster node is listed as Ready.
+
+![image](https://user-images.githubusercontent.com/5245744/161418644-78698257-05bd-4f3b-bedb-2101be749e00.png)
 
 ####  Task 4: Grant the AKS cluster permissions to access the ACR and manage its virtual network
 
@@ -107,7 +110,7 @@ In this task, you will grant the AKS cluster permission to access the ACR and ma
 
     az role assignment create --assignee $AKS_MANAGED_ID --role "Contributor" --scope $AKS_VNET_ID
 ```
-
+_For this step you can install monaco editor , this will allow you to open editor in the terminal__ [Link to monaco editor]( microsoft.github.io/monaco-editor/ )
 #### Task 5: Deploy an external service to AKS
 
 In this task, you will download the Manifest files, edit the YAML file, and apply your changes to the cluster.
@@ -128,12 +131,14 @@ In this task, you will download the Manifest files, edit the YAML file, and appl
   sh
     code ./nginxexternal.yaml
   ```
+![image](https://user-images.githubusercontent.com/5245744/161418742-5bd9fb4e-ad47-412f-8f9d-194c1adff32f.png)
 
  >This is the external yaml file.
 
  >In the editor pane, scroll down to line 24 and replace the <ACRUniquename> placeholder with the ACR name.
 
 4. In the editor pane, in the upper right corner, click the ellipses icon, click Save and then click Close editor.
+![image](https://user-images.githubusercontent.com/5245744/161418774-2238abb1-5d4d-4084-b338-20d6f68faf13.png)
 
 5. In the Bash session within the Cloud Shell pane, run the following to apply the change to the cluster:
 
@@ -162,6 +167,7 @@ In this task, verify the container can be accessed externally using the public I
 3. Open a new browser tab and browse to the IP address you identified in the previous step.
 
  >Ensure the Welcome to nginx! page displays.
+![image](https://user-images.githubusercontent.com/5245744/161418784-e9f5c290-fd37-4c5b-846a-cff94bc74e72.png)
 
 #### Task 7: Deploy an internal service to AKS
 
@@ -184,12 +190,19 @@ In this task, you will deploy the internal facing service on the AKS.
   ```sh
     kubectl apply -f nginxinternal.yaml
   ```
+ ![image](https://user-images.githubusercontent.com/5245744/161418808-91b667ce-f9eb-4e52-a85c-d0deb48a86fa.png)
+
 5. In the Bash session within the Cloud Shell pane, review the output to verify your deployment and the service have been created:
 
     ```
     deployment.apps/nginxinternal created
     service/nginxinternal created
   ```
+ 
+ In the portal, you can see the _nginxexternal_ and _nginxinternal_ service has been created.
+ 
+ ![image](https://user-images.githubusercontent.com/5245744/161418860-85a1cf8c-5255-4424-a01f-254b6b8f0d08.png)
+
  6. In the Bash session within the Cloud Shell pane, run the following to retrieve information about the nginxinternal service including name, type, IP addresses, and ports.
 
     ```
@@ -214,6 +227,9 @@ In this task, you will use one of the pods running on the AKS cluster to access 
 sh
     kubectl get pods
 ```
+ 
+ ![image](https://user-images.githubusercontent.com/5245744/161418884-5058bd12-d84d-4882-88cf-ebcb0754cbda.png)
+
  In the listing of the pods, copy the first entry in the NAME column.
 
 3. This is the pod you will use in the subsequent steps.
@@ -230,6 +246,9 @@ sh
     sh
     curl http://<internal_IP>
     ```
+ 
+ ![image](https://user-images.githubusercontent.com/5245744/161418958-8ce38273-bd82-4ca3-80b6-f482476f70bf.png)
+
 6. Close the Cloud Shell pane.
   >Result: You have configured and secured ACR and AKS.
 
@@ -247,6 +266,7 @@ powershell
     ```Remove-AzResourceGroup -Name "AZ500LAB09" -Force -AsJob```
 
     Close the Cloud Shell pane.
+![image](https://user-images.githubusercontent.com/5245744/161418986-6654aeb2-603f-4550-80e2-929aa632d079.png)
 
 Congratulations!
 
